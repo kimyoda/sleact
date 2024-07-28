@@ -1,21 +1,15 @@
 import React, {useCallback, useState} from "react";
 import {Form, Error, Success, Label, Input, Header, Button, LinkContainer} from "./styles"
+import useInput from "@hooks/useInput";
 // Alt + j를 누르면 동시에 변경 가능
 const SignUp = () => {
     const [signUpError] = useState("");
     const [signUpSuccess] = useState("");
     const [mismatchError, setMismatchError] = useState(false);
-    const [email, setEmail] = useState("");
-    const [nickname, setNickname] = useState("");
+    const [email, onChangeEmail] = useInput("");
+    const [nickname, onChangeNickname] = useInput("");
     const [password, setPassword] = useState("");
     const [passwordCheck, setPasswordCheck] = useState("");
-    const onChangeEmail = useCallback((e) => {
-        setEmail(e.target.value);
-    }, []);
-
-    const onChangeNickname = useCallback((e) => {
-        setNickname(e.target.value);
-    }, []);
 
     const onChangePassword = useCallback((e) => {
         setPassword(e.target.value);
