@@ -2,6 +2,7 @@ import React, {useCallback, useState} from "react";
 import {Form, Error, Success, Label, Input, Header, Button, LinkContainer} from "./styles"
 import useInput from "@hooks/useInput";
 import axios from "axios";
+import {Link} from "react-router-dom";
 // Alt + j를 누르면 동시에 변경 가능
 const SignUp = () => {
     const [signUpError, setSignUpError] = useState("");
@@ -91,7 +92,7 @@ const SignUp = () => {
             </Form>
             <LinkContainer>
                 이미 회원이신가요?&nbsp;
-                <a href="/login">로그인 하러가기</a>
+                <Link to="/login">로그인 하러가기</Link>
             </LinkContainer>
         </div>
     );
