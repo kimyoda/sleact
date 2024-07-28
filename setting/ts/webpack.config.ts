@@ -83,6 +83,13 @@ const config: Configuration = {
     port: 3090,
     devMiddleware: { publicPath: '/dist/' },
     static: { directory: path.resolve(__dirname) },
+    // cors 해결방법 중 1안
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3095',
+        changeOrigin: true,
+      }
+    }
   },
 };
 
