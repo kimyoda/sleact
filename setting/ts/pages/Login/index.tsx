@@ -3,9 +3,13 @@ import useInput from "@hooks/useInput";
 import {Form, Header, Label, Error, Button, LinkContainer, Input} from "@pages/SignUp/styles";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import useSWR from "swr";
+import fetcher from "@utils/fetcher";
 
 // Alt + j를 누르면 동시에 변경 가능
 const LogIn = () => {
+    // SWR 활용
+    const {data, error} = useSWR("http://localhost:3095/api/users", fetcher);
     const [logInError, setLogInError] = useState(false);
     const [email, onChangeEmail] = useInput("");
     const [password, onChangePassword] = useInput("");
@@ -13,8 +17,9 @@ const LogIn = () => {
     const onSubmit = useCallback((e) => {
         e.preventDefault();
         setLogInError(false);
-        axios.post('/api/users/login', {
+        axios.post('http://localhost:3095/api/users/login', {
             email, password
+        //     post에는 3번째 자리에 withCredentials가 위치해야한다.
         }, {withCredentials: true},
             ).then(() => {
         }).catch((error) => {
