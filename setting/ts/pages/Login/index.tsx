@@ -8,8 +8,10 @@ import fetcher from "@utils/fetcher";
 
 // Alt + j를 누르면 동시에 변경 가능
 const LogIn = () => {
-    // SWR 활용
-    const {data, error} = useSWR("http://localhost:3095/api/users", fetcher);
+    // SWR 활용, 강의는 revaildate지만 현 버전에선 mutate로 대체 해당 사항 확인하
+    const {data, error, mutate} = useSWR("http://localhost:3095/api/users", fetcher, {
+        dedupingInterval: 100000,
+    });
     const [logInError, setLogInError] = useState(false);
     const [email, onChangeEmail] = useInput("");
     const [password, onChangePassword] = useInput("");
@@ -22,6 +24,7 @@ const LogIn = () => {
         //     post에는 3번째 자리에 withCredentials가 위치해야한다.
         }, {withCredentials: true},
             ).then(() => {
+            mutate();
         }).catch((error) => {
             setLogInError(error.response?.data?.statusCode === 401);
         });
